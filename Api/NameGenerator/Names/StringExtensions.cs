@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace RandomNameGenerator
+namespace RNG.Names
 {
     public static class StringExtensions
     {
         public static string StringJoin(this IEnumerable<string> enumerable, string separator = "")
         {
             return string.Join(separator, enumerable);
-        }
-
-        public static string StringJoin<T>(this IEnumerable<T> enumerable, string separator = "")
-        {
-            return string.Join<T>(separator, enumerable);
         }
 
         public static string ToTitleCase(this string value)

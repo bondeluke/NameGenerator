@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using RandomNameGenerator;
 using RNG.Names;
 
 namespace RNG.Controllers
@@ -12,11 +11,25 @@ namespace RNG.Controllers
         [HttpGet]
         public string[] Get()
         {
-            var generator = new NameGenerator(null, null);
+            var generator = new NameGeneratingService();
 
-            var rules = new NamingRules();
+            var conditions = new NamingConditions()
+            {
+                MinimumGroups = 2,
+                MaximumGroups = 6,
+                NameCount = 50,
+                Molecules = new[]
+                {
+                    new Molecule("ab", AtomType.Vowel, AtomType.Consonant, 2, 4, 2),
+                    new Molecule("car", AtomType.Consonant, AtomType.Consonant, 1, 1, 2),
+                    new Molecule("pr", AtomType.Consonant, AtomType.Consonant, 6, 1, 2),
+                    new Molecule("ara", AtomType.Vowel, AtomType.Vowel, 6, 1, 2)
+                }
+            };
 
-            return generator.GenerateRandomNames(new Natural(3)).ToArray();
+            return generator
+                .GenerateRandomNames(conditions)
+                .ToArray();
         }
 
         // GET api/values/5

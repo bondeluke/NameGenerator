@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace RandomNameGenerator
+﻿namespace RNG.Names
 {
     public class Weighted<T>
     {
@@ -13,9 +8,9 @@ namespace RandomNameGenerator
             Weight = weight;
         }
 
-        public T Value { get; private set; }
+        public T Value { get; }
 
-        public int Weight { get; private set; }
+        public int Weight { get; }
 
         public override string ToString()
         {

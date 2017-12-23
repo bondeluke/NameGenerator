@@ -1,8 +1,6 @@
-﻿using RandomNameGenerator;
-
-namespace RNG.Names
+﻿namespace RNG.Names
 {
-    public class NamingRules
+    public class NamingConditions
     {
         public int MinimumGroups { get; set; }
 
@@ -10,6 +8,6 @@ namespace RNG.Names
 
         public int NameCount { get; set; }
 
-        public LetterGroup[] Groups { get; set; }
+        public Molecule[] Molecules { get; set; }
     }
 }
