@@ -11,7 +11,7 @@ namespace RandomNameGenerator
     {
         public static string GetContent(this FileInfo fileInfo)
         {
-            using (var streamReader = new StreamReader(fileInfo.FullName))
+            using (var streamReader = new StreamReader(new FileStream(fileInfo.FullName, FileMode.OpenOrCreate)))
             {
                 return streamReader.ReadToEnd();
             }
@@ -19,7 +19,7 @@ namespace RandomNameGenerator
 
         public static IEnumerable<string> GetLines(this FileInfo fileInfo)
         {
-            using (var streamReader = new StreamReader(fileInfo.FullName))
+            using (var streamReader = new StreamReader(new FileStream(fileInfo.FullName, FileMode.OpenOrCreate)))
             {
                 while (!streamReader.EndOfStream)
                 {
@@ -30,7 +30,7 @@ namespace RandomNameGenerator
 
         public static void SaveToFile(this string content, string filePath)
         {
-            using (var streamWriter = new StreamWriter(filePath))
+            using (var streamWriter = new StreamWriter(new FileStream(filePath, FileMode.OpenOrCreate)))
             {
                 streamWriter.Write(content);
             }
@@ -38,7 +38,7 @@ namespace RandomNameGenerator
 
         public static void SaveToFile(this IEnumerable<string> lines, string filePath)
         {
-            using (var streamWriter = new StreamWriter(filePath))
+            using (var streamWriter = new StreamWriter(new FileStream(filePath, FileMode.OpenOrCreate)))
             {
                 foreach (var line in lines)
                 {

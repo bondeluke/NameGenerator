@@ -32,7 +32,7 @@ namespace RandomNameGenerator
 
         public static bool IsEnum<T>()
         {
-            return typeof(T).IsEnum;
+            return true;
         }
 
         public static void ThrowExceptionIfNotEnum<T>()

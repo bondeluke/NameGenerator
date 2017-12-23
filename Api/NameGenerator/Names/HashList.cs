@@ -64,10 +64,7 @@ namespace RandomNameGenerator
             get { return _internalCollection.Count; }
         }
 
-        public bool IsReadOnly
-        {
-            get { return _hashtable.IsReadOnly; }
-        }
+        public bool IsReadOnly => true;
 
         public bool Remove(T item)
         {

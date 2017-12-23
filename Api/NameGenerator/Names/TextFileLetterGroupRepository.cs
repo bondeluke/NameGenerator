@@ -16,7 +16,7 @@ namespace RandomNameGenerator
 
             LetterGroupType leadType = LetterGroupType.Vowel;
             LetterGroupType trailType = LetterGroupType.Vowel;
-            using (var reader = new StreamReader(@"C:\ProjectFiles\RNG\TextFileLetterGroups.txt"))
+            using (var reader = new StreamReader(new FileStream(@"C:\ProjectFiles\RNG\TextFileLetterGroups.txt", FileMode.Open)))
             {
                 while (!reader.EndOfStream)
                 {

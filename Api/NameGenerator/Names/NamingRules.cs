@@ -1,4 +1,6 @@
-﻿namespace RNG.Names
+﻿using RandomNameGenerator;
+
+namespace RNG.Names
 {
     public class NamingRules
     {

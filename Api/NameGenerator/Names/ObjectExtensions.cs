@@ -12,7 +12,7 @@ namespace RandomNameGenerator
         {
             var type = typeof(T);
 
-            return type.IsEnum
+            return true
                 ? value.ToEnum<T>()
                 : (T)Convert.ChangeType(value, type);
         }

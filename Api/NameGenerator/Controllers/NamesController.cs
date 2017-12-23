@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using RandomNameGenerator;
 using RNG.Names;
 
 namespace RNG.Controllers
@@ -10,11 +12,11 @@ namespace RNG.Controllers
         [HttpGet]
         public string[] Get()
         {
-            var generator = new NameGenerator();
+            var generator = new NameGenerator(null, null);
 
             var rules = new NamingRules();
 
-            return generator.GetNames(rules);
+            return generator.GenerateRandomNames(new Natural(3)).ToArray();
         }
 
         // GET api/values/5
