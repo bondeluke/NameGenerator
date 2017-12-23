@@ -8,11 +8,11 @@ namespace RNG.Names
         Consonant = 1
     }
 
-    public enum MoleculeWeightType
+    public enum PositionType
     {
-        Lead = 0,
-        Mid = 1,
-        Trail = 2
+        Beginning = 0,
+        Middle = 1,
+        End = 2
     }
 
     public class Molecule
@@ -34,15 +34,15 @@ namespace RNG.Names
         public int MidWeight { get; }
         public int TrailWeight { get; }
 
-        public int GetWeightForType(MoleculeWeightType weightType)
+        public int GetWeight(PositionType weightType)
         {
             switch (weightType)
             {
-                case MoleculeWeightType.Lead:
+                case PositionType.Beginning:
                     return LeadWeight;
-                case MoleculeWeightType.Mid:
+                case PositionType.Middle:
                     return MidWeight;
-                case MoleculeWeightType.Trail:
+                case PositionType.End:
                     return TrailWeight;
                 default:
                     throw new Exception();

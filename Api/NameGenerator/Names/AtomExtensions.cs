@@ -4,7 +4,7 @@
     {
         public static AtomType GetOpposite(this AtomType value)
         {
-            return (AtomType)((((int)value) + 1) % 2);
+            return (AtomType)(((int)value + 1) % 2);
         }
     }
 }

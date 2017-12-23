@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace RNG.Names
@@ -10,33 +9,34 @@ namespace RNG.Names
 
         public string GenerateRandomName(NamingConditions c)
         {
-            var groupLength = Random.Next(c.MinimumGroups, c.MaximumGroups);
+            return Random.Next(c.MinimumGroups, c.MaximumGroups)
+                .Enumerate<Molecule>((i, count, p) =>
+                {
+                    if (i == 0)
+                        return c.Molecules
+                            .ToWeightedDictionary(m => m.GetWeight(PositionType.Beginning))
+                            .GetRandomItem();
 
-            var groups = new List<Molecule>
-            {
-                c.Molecules.GetRandomMolecule(AtomType.Consonant, MoleculeWeightType.Lead)
-            };
+                    var leadType = p.LeadType.GetOpposite();
 
-            for (var i = 1; i < groupLength; i++)
-            {
-                var leadTypeForNextGroup = groups.Last().TrailType.GetOpposite();
-                var weightType = i == groupLength - 1 ? MoleculeWeightType.Trail : MoleculeWeightType.Mid;
-                var nextGroup = c.Molecules.GetRandomMolecule(leadTypeForNextGroup, weightType);
-                groups.Add(nextGroup);
-            }
+                    var weightType = i == count - 1
+                        ? PositionType.End
+                        : PositionType.Middle;
 
-            return groups
-                .Select(g => g.Value)
+                    return c.Molecules.GetRandom(leadType, weightType);
+                })
+                .Select(m => m.Value)
                 .StringJoin()
                 .ToTitleCase();
         }
 
         public string[] GenerateRandomNames(NamingConditions conditions)
         {
-           return conditions
+            return conditions
                 .NameCount
-                .Select(i => GenerateRandomName(conditions))
+                .Enumerate<string>((i, c, p) => GenerateRandomName(conditions))
                 .Distinct()
+                .OrderBy(n => n)
                 .ToArray();
         }
     }
