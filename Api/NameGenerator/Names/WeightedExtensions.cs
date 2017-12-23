@@ -1,26 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RNG.Names
 {
     public static class WeightedExtensions
     {
-        public static WeightedDictionary<T> ToWeightedDictionary<T>(this Weighted<T>[] weightedItems)
+        private static readonly Random Rng = new Random();
+
+        public static WeightedDictionary<T> ToWeightedDictionary<T>(this IEnumerable<T> items, Func<T, int> weightSelector)
         {
-            return new WeightedDictionary<T>(weightedItems);
+            return new WeightedDictionary<T>(
+                items
+                    .Select(item => new Weighted<T>(item, weightSelector(item)))
+                    .ToArray()
+            );
         }
 
-        public static WeightedDictionary<T> ToWeightedDictionary<T>(this T[] items, Func<T, int> weightSelector)
+        public static T GetRandomItem<T>(this WeightedDictionary<T> dict)
         {
-            return items
-                .Select(item => item.ToWeighted(weightSelector))
-                .ToArray()
-                .ToWeightedDictionary();
-        }
-
-        public static Weighted<T> ToWeighted<T>(this T item, Func<T, int> weightSelector)
-        {
-            return new Weighted<T>(item, weightSelector(item));
+            return dict[Rng.Next(dict.TotalWeight)];
         }
     }
 }

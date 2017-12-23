@@ -1,10 +1,16 @@
-﻿namespace RNG.Names
+﻿using System;
+
+namespace RNG.Names
 {
     public class Weighted<T>
     {
         public Weighted(T item, int weight)
         {
             Value = item;
+
+            if (weight < 0)
+                throw new ArgumentException("Weight must be non-negative.");
+
             Weight = weight;
         }
 

@@ -6,15 +6,15 @@ namespace RNG.Names
 {
     public sealed class WeightedDictionary<T>
     {
-        private static readonly Random Random = new Random(DateTime.Now.GetHashCode());
-
         public WeightedDictionary(Weighted<T>[] weightedItems)
         {
-            _totalWeight = weightedItems.Sum(x => x.Weight);
+            TotalWeight = weightedItems.Sum(x => x.Weight);
+
             _itemLookup = new List<KeyValuePair<int, T>>();
 
             var cumulativeWeight = 0;
-            foreach (var item in weightedItems.Where(i => i.Weight > 0))
+
+            foreach (var item in weightedItems)
             {
                 _itemLookup.Add(new KeyValuePair<int, T>(cumulativeWeight, item.Value));
                 cumulativeWeight += item.Weight;
@@ -25,13 +25,13 @@ namespace RNG.Names
 
         private readonly List<KeyValuePair<int, T>> _itemLookup;
 
-        private readonly int _totalWeight;
+        public readonly int TotalWeight;
 
         public T this[int index]
         {
             get
             {
-                if (index < 0 || _totalWeight <= index)
+                if (index < 0 || TotalWeight <= index)
                     throw new ArgumentOutOfRangeException(nameof(index));
 
                 for (var i = 0; i < _itemLookup.Count; i++)
@@ -48,11 +48,6 @@ namespace RNG.Names
 
                 throw new Exception();
             }
-        }
-
-        public T GetRandomItem()
-        {
-            return this[Random.Next(_totalWeight)];
         }
     }
 }

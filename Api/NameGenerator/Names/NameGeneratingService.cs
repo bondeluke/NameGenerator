@@ -9,30 +9,32 @@ namespace RNG.Names
 
         public string[] GenerateRandomNames(NamingConditions conditions)
         {
+            var leaders = conditions
+                .Molecules
+                .ToWeightedDictionary(m => m.GetWeight(PositionType.Beginning));
+
             return conditions
                 .TotalNames
-                .Enumerate<string>((i, c, p) => GetName(conditions))
+                .Enumerate<string>((i, c, p) => GetName(conditions, leaders))
                 .Distinct()
                 .OrderBy(n => n)
                 .ToArray();
         }
 
-        private string GetName(NamingConditions conditions)
+        private string GetName(NamingConditions conditions, WeightedDictionary<Molecule> leaders)
         {
             return conditions.NameComponentCount
-                .Enumerate<string>((i, c, p) => GetComponent(conditions))
+                .Enumerate<string>((i, c, p) => GetComponent(conditions, leaders))
                 .StringJoin(" ");
         }
 
-        private string GetComponent(NamingConditions c)
+        private string GetComponent(NamingConditions c, WeightedDictionary<Molecule> leaders)
         {
             return Random.Next(c.MinimumGroups, c.MaximumGroups)
                 .Enumerate<Molecule>((i, count, p) =>
                 {
                     if (i == 0)
-                        return c.Molecules
-                            .ToWeightedDictionary(m => m.GetWeight(PositionType.Beginning))
-                            .GetRandomItem();
+                        return leaders.GetRandomItem();
 
                     var leadType = p.LeadType.GetOpposite();
 
