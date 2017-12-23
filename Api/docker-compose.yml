@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  namegenerator:
+    image: namegenerator
+    build:
+      context: ./NameGenerator
+      dockerfile: Dockerfile
