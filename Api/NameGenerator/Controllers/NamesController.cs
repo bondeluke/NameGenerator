@@ -1,19 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using RNG.Names;
 
-namespace NameGenerator.Controllers
+namespace RNG.Controllers
 {
-    [Route("api/[controller]")]
-    public class ValuesController : Controller
+    [Route("api/names")]
+    public class NamesController : Controller
     {
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public string[] Get()
         {
-            return new string[] { "value1", "value2" };
+            var generator = new NameGenerator();
+
+            var rules = new NamingRules();
+
+            return generator.GetNames(rules);
         }
 
         // GET api/values/5
