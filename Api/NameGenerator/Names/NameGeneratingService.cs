@@ -7,7 +7,24 @@ namespace RNG.Names
     {
         private static readonly Random Random = new Random(DateTime.Now.GetHashCode() + 1);
 
-        public string GenerateRandomName(NamingConditions c)
+        public string[] GenerateRandomNames(NamingConditions conditions)
+        {
+            return conditions
+                .TotalNames
+                .Enumerate<string>((i, c, p) => GetName(conditions))
+                .Distinct()
+                .OrderBy(n => n)
+                .ToArray();
+        }
+
+        private string GetName(NamingConditions conditions)
+        {
+            return conditions.NameComponentCount
+                .Enumerate<string>((i, c, p) => GetComponent(conditions))
+                .StringJoin(" ");
+        }
+
+        private string GetComponent(NamingConditions c)
         {
             return Random.Next(c.MinimumGroups, c.MaximumGroups)
                 .Enumerate<Molecule>((i, count, p) =>
@@ -28,16 +45,6 @@ namespace RNG.Names
                 .Select(m => m.Value)
                 .StringJoin()
                 .ToTitleCase();
-        }
-
-        public string[] GenerateRandomNames(NamingConditions conditions)
-        {
-            return conditions
-                .NameCount
-                .Enumerate<string>((i, c, p) => GenerateRandomName(conditions))
-                .Distinct()
-                .OrderBy(n => n)
-                .ToArray();
         }
     }
 }
