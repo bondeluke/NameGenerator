@@ -6,8 +6,10 @@
   "dependencies": {
     "@types/react": "16.0.31",
     "@types/react-dom": "16.0.3",
+    "@types/redux": "3.6.0",
     "react": "16.2.0",
-    "react-dom": "16.2.0"
+    "react-dom": "16.2.0",
+    "redux": "3.7.2"
   },
   "devDependencies": {
     "awesome-typescript-loader": "3.4.1",
@@ -15,7 +17,8 @@
     "typescript": "2.6.2"
   },
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "build": "webpack" 
   },
   "repository": {
     "type": "git",

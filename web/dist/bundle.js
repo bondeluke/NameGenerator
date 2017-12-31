@@ -78,8 +78,8 @@ module.exports = React;
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
 var ReactDOM = __webpack_require__(2);
-var Hello_1 = __webpack_require__(3);
-ReactDOM.render(React.createElement(Hello_1.Hello, { compiler: "TypeScript", framework: "React" }), document.getElementById("example"));
+var App_1 = __webpack_require__(3);
+ReactDOM.render(React.createElement(App_1.App, { compiler: 'TypeScript', framework: 'React' }), document.getElementById('app_root'));
 
 
 /***/ }),
@@ -106,7 +106,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
-exports.Hello = function (props) { return React.createElement("h1", null,
+exports.App = function (props) { return React.createElement("h1", null,
     "Hello from ",
     props.compiler,
     " and ",
