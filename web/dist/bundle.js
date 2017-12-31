@@ -3607,7 +3607,8 @@ function generateNames() {
         .then(function (resp) { return resp.json(); })
         .then(function (response) {
         store_1.dispatch({ type: 'names-returned', names: response });
-    });
+    })
+        .catch(function (e) { return alert('An error occurred while making a GET request to /api/names'); });
 }
 exports.generateNames = generateNames;
 
