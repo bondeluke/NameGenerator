@@ -23,6 +23,7 @@ namespace RNG
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddCors();
             services.AddTransient<NameGeneratingService>();
         }
 
@@ -31,6 +32,9 @@ namespace RNG
         {
             loggerFactory.AddConsole(_configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            app.UseCors(b => 
+                b.WithOrigins("http://localhost:9001").AllowAnyHeader().AllowAnyMethod());
 
             app.UseMvc();
         }

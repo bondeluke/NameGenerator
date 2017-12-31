@@ -3,17 +3,19 @@ import logger from 'redux-logger'
 
 export interface AppState {
     count: number;
+    names: Array<string>;
 }
 
 var defaultState: AppState = {
-    count: 0
+    count: 0,
+    names: []
 }
 
 var rootReducer: Redux.Reducer<AppState> = (y: AppState, a: Redux.AnyAction) => {
     if (a.type === "@@redux/INIT")
         return defaultState;
 
-    return { count: y.count + 1 }
+    return { count: y.count + 1, names: a.names }
 };
 
 var store = Redux.createStore(rootReducer, defaultState, Redux.applyMiddleware(logger));

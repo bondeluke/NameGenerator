@@ -21,7 +21,7 @@ namespace RNG.Controllers
             {
                 MinimumGroups = 2,
                 MaximumGroups = 7,
-                TotalNames = 200,
+                TotalNames = 20,
                 NameComponentCount = 2,
                 Molecules = Molecule.GetDefaultCollection()
             };

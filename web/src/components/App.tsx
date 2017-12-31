@@ -1,17 +1,20 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { dispatch, AppState } from '../store';
+import { generateNames } from '../dispatchers/get-names';
+import Names from './Names';
 
 interface AppProps { count: number }
 
 export const App = (props: AppProps) => (
     <div>
-        <h1>You've clicked it {props.count} times</h1>
-        <button onClick={e => dispatch({ type: 'click'})}>Click me!</button>
+        <h1>You've generated names {props.count} times!</h1>
+        <button onClick={generateNames}>Generate Names!</button>
+        <Names />
     </div>
 );
 
-var mapStateToProps = (state: AppState) => {
+var mapStateToProps = (state: AppState): AppProps => {
     return { count: state.count }
 }
 

@@ -5,9 +5,10 @@ import * as ReactDOM from 'react-dom';
 import App from './components/App';
 
 ReactDOM.render(
-    <Provider store={getStore()}>
-        <App />
-    </Provider>
-    ,
+    (
+        <Provider store={getStore()}>
+            <App />
+        </Provider>
+    ),
     document.getElementById('app_root')
 );
