@@ -10,6 +10,9 @@ var defaultState: AppState = {
 }
 
 var rootReducer: Redux.Reducer<AppState> = (y: AppState, a: Redux.AnyAction) => {
+    if (a.type === "@@redux/INIT")
+        return defaultState;
+
     return { count: y.count + 1 }
 };
 
